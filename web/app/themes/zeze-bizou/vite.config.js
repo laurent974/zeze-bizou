@@ -40,4 +40,11 @@ export default defineConfig({
       '@images': '/resources/images',
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        includePaths: ['node_modules']
+      }
+    }
+  },
 })
