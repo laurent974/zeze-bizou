@@ -43,7 +43,7 @@ add_action('admin_head', function () {
         }
     }
     echo Vite::withEntryPoints([
-        'resources/js/editor.js',
+        'resources/js/editor.ts',
     ])->toHtml();
 });
 
