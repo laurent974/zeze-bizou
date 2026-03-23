@@ -13,9 +13,9 @@ export default defineConfig({
     laravel({
       input: [
         'resources/css/app.scss',
-        'resources/js/app.js',
+        'resources/js/app.ts',
         'resources/css/editor.scss',
-        'resources/js/editor.js',
+        'resources/js/editor.ts',
       ],
       refresh: true,
       assets: ['resources/images/**', 'resources/fonts/**'],
