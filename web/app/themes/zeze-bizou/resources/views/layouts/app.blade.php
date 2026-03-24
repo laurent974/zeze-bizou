@@ -13,9 +13,7 @@
     @php(wp_body_open())
 
     <div id="app">
-      <a class="sr-only focus:not-sr-only" href="#main">
-        {{ __('Skip to content', 'sage') }}
-      </a>
+      @include('components.skiplinks')
 
       @include('sections.header')
 
