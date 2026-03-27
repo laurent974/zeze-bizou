@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import laravel from 'laravel-vite-plugin'
 import { wordpressPlugin, wordpressThemeJson } from '@roots/vite-plugin';
+import eslintPlugin from 'vite-plugin-eslint'
+import stylelint from 'vite-plugin-stylelint'
 
 // Set APP_URL if it doesn't exist for Laravel Vite plugin
 if (! process.env.APP_URL) {
@@ -8,7 +10,7 @@ if (! process.env.APP_URL) {
 }
 
 export default defineConfig({
-  base: '/app/themes/sage/public/build/',
+  base: '/app/themes/zeze-bizou/',
   plugins: [
     laravel({
       input: [
@@ -22,6 +24,8 @@ export default defineConfig({
     }),
 
     wordpressPlugin(),
+    eslintPlugin(),
+    stylelint(),
 
     // Generate the theme.json file in the public/build/assets directory
     // based on the Tailwind config and the theme.json file from base theme folder
@@ -46,5 +50,19 @@ export default defineConfig({
         includePaths: ['node_modules']
       }
     }
+  },
+  server: {
+    host: "0.0.0.0",
+    port: 5173,
+    strictPort: true,
+    // Defines the origin of the generated asset URLs during development,
+    // this must be set to the Vite dev server URL and selected port.
+    origin: `${process.env.DDEV_PRIMARY_URL_WITHOUT_PORT}:5173`,
+    // Configure CORS securely for the Vite dev server to allow requests
+    // from *.ddev.site domains, supports additional hostnames (via regex).
+    // If you use another `project_tld`, adjust this value accordingly.
+    cors: {
+      origin: /https?:\/\/([A-Za-z0-9\-\.]+)?(\.ddev\.site)(?::\d+)?$/,
+    },
   },
 })
