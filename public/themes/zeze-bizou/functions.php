@@ -19,26 +19,26 @@ add_action('after_setup_theme', function () {
 });
 
 // Register scripts and styles.
-add_action('wp_enqueue_scripts', function () {
-    $manifestPath = get_theme_file_path('assets/.vite/manifest.json');
-
-    if (
-        wp_get_environment_type() === 'local'
-        && is_array(wp_remote_get('http://localhost:5173/')) // is Vite.js running
-    ) {
-        wp_enqueue_script('vite', 'http://localhost:5173/@vite/client');
-        wp_enqueue_script('wordplate', 'http://localhost:5173/resources/js/index.js');
-    } elseif (file_exists($manifestPath)) {
-        $manifest = json_decode(file_get_contents($manifestPath), true);
-        wp_enqueue_script('wordplate', get_theme_file_uri('assets/' . $manifest['resources/js/index.js']['file']));
-        wp_enqueue_style('wordplate', get_theme_file_uri('assets/' . $manifest['resources/js/index.js']['css'][0]));
-    }
-});
+/* add_action('wp_enqueue_scripts', function () { */
+/*     $manifestPath = get_theme_file_path('assets/.vite/manifest.json'); */
+/**/
+/*     if ( */
+/*         wp_get_environment_type() === 'local' */
+/*         && is_array(wp_remote_get('http://localhost:5173/')) // is Vite.js running */
+/*     ) { */
+/*         wp_enqueue_script('vite', 'http://localhost:5173/@vite/client'); */
+/*         wp_enqueue_script('wordplate', 'http://localhost:5173/resources/js/index.js'); */
+/*     } elseif (file_exists($manifestPath)) { */
+/*         $manifest = json_decode(file_get_contents($manifestPath), true); */
+/*         wp_enqueue_script('wordplate', get_theme_file_uri('dist/' . $manifest['resources/js/index.js']['file'])); */
+/*         wp_enqueue_style('wordplate', get_theme_file_uri('dist/' . $manifest['resources/js/index.js']['css'][0])); */
+/*     } */
+/* }); */
 
 // Load scripts as modules.
 add_filter('script_loader_tag', function (string $tag, string $handle, string $src) {
-    if (in_array($handle, ['vite', 'wordplate'])) {
-        return '<script type="module" src="' . esc_url($src) . '" defer></script>';
+    if (in_array($handle, ['vite', 'wordplate', 'vite-client', 'main-js'])) {
+        return '<script type="module" src="' . esc_url($src) . '"></script>';
     }
 
     return $tag;
@@ -123,3 +123,40 @@ add_action('after_setup_theme', function () {
         flush_rewrite_rules();
     }
 });
+
+function vite_asset($filename, $type = 'js') {
+    static $manifest;
+
+    if (!$manifest) {
+        $manifestPath = get_template_directory() . '/dist/.vite/manifest.json'; // manifest généré par Vite
+        if (!file_exists($manifestPath)) return '';
+        $manifest = json_decode(file_get_contents($manifestPath), true);
+    }
+
+    foreach ($manifest as $key => $value) {
+        if (str_ends_with($key, $filename)) {
+            if ($type === 'js') {
+                return get_template_directory_uri() . '/dist/' . $value['file'];
+            } elseif ($type === 'css' && !empty($value['css'][0])) {
+                return get_template_directory_uri() . '/dist/' . $value['css'][0];
+            }
+        }
+    }
+
+    return '';
+}
+
+function theme_enqueue_scripts() {
+    $js = vite_asset('main.js', 'js');
+    $css = vite_asset('main.js', 'css');
+
+    if ($css) wp_enqueue_style('main-css', $css, [], null);
+    if ($js) wp_enqueue_script('main-js', $js, [], null, true);
+
+    if (wp_get_environment_type() === 'local') {
+        // Vite dev server
+        wp_enqueue_script('main-js', 'http://localhost:5173/js/main.js', [], null, true);
+    }
+}
+add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
+

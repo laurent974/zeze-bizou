@@ -1,33 +1,26 @@
 import { defineConfig } from 'vite';
 import dotenv from 'dotenv';
-import tailwindcss from '@tailwindcss/vite';
+import path from 'path';
 
 dotenv.config();
 
 export default defineConfig({
-  publicDir: 'resources/static',
-  server: {
-    cors: true,
-    strictPort: true,
+  root: `public/themes/${process.env.WP_DEFAULT_THEME}/app`,
+  base: './',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, `public/themes/${process.env.WP_DEFAULT_THEME}/app`) // @ = dossier app
+    }
   },
   build: {
     assetsDir: '',
     emptyOutDir: true,
     manifest: true,
-    outDir: `public/themes/${process.env.WP_DEFAULT_THEME}/assets`,
+    outDir: `../dist`,
     rollupOptions: {
-      input: 'resources/js/index.js',
+      input: {
+        main: path.resolve(__dirname, `public/themes/${process.env.WP_DEFAULT_THEME}/app/js/main.js`)
+      }
     },
   },
-  plugins: [
-    {
-      name: 'php',
-      handleHotUpdate({ file, server }) {
-        if (file.endsWith('.php')) {
-          server.ws.send({ type: 'full-reload', path: '*' });
-        }
-      },
-    },
-    tailwindcss(),
-  ],
 });

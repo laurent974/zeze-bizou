@@ -1,0 +1,9 @@
+<head>
+    <meta charset="UTF-8">
+    {{ function('wp_head') }}
+</head>
+<body>
+    {% block content %}{% endblock %}
+    <p>ça marche ça ?</p>
+    {{ function('wp_footer') }}
+</body>
