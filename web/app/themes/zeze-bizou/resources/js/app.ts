@@ -1,6 +1,15 @@
-d
-ebugger
+import { store } from '@wordpress/interactivity'
+import { navigate } from '@wordpress/interactivity-router';
 
-const test = "ok"
-test = "pas ok"
-// import { store } from '@wordpress/interactivity'
+// Utilisation.
+const { state, actions } = store('my-store', {
+  state: {
+    count: 0
+  },
+  actions: {
+    increment() {
+      state.count++;
+    }
+  }
+});
+

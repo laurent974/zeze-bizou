@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import laravel from 'laravel-vite-plugin'
 import { wordpressPlugin, wordpressThemeJson } from '@roots/vite-plugin';
-import eslintPlugin from 'vite-plugin-eslint'
 import stylelint from 'vite-plugin-stylelint'
 
 // Set APP_URL if it doesn't exist for Laravel Vite plugin
@@ -24,7 +23,6 @@ export default defineConfig({
     }),
 
     wordpressPlugin(),
-    eslintPlugin(),
     stylelint(),
 
     // Generate the theme.json file in the public/build/assets directory
