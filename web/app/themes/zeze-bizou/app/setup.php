@@ -162,7 +162,10 @@ add_action('widgets_init', function () {
     ] + $config);
 });
 
+/**
+ * Translation setup.
+ *
+*/
 add_action('after_setup_theme', function () {
     load_textdomain( 'sage', get_template_directory() . '/resources/lang/' . determine_locale() . '.mo' );
 });
-
