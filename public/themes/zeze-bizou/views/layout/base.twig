@@ -1,9 +1,25 @@
-<head>
-    <meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="{{ site.language }}">
+  <head>
+    {% block head %}
+    {% endblock %}
+
     {{ function('wp_head') }}
-</head>
-<body>
-    {% block content %}{% endblock %}
-    <p>ça marche ça ?</p>
+  </head>
+
+  <body class="{{ body_class }}">
+    <main>
+      {{ include("partials/header.twig") }}
+
+      {% block content %}
+      {% endblock %}
+    </main>
+
+    <footer>
+      {% block footer %}
+      {% endblock %}
+    </footer>
+
     {{ function('wp_footer') }}
-</body>
+  </body>
+</html>

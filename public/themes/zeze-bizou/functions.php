@@ -13,8 +13,12 @@ add_action('after_setup_theme', function () {
     add_theme_support('post-thumbnails');
     add_theme_support('title-tag');
 
+    load_theme_textdomain('zeze-bizou', get_template_directory() . '/languages');
+
     register_nav_menus([
-        'navigation' => __('Navigation'),
+        'primary' => __('Primary'),
+        'shop' => __('Shop'),
+        'footer' => __('Footer')
     ]);
 });
 
@@ -160,3 +164,21 @@ function theme_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
 
+add_filter('timber/context', 'add_to_context');
+/**
+ * Global Timber context.
+ *
+ * @param array $context Global context variables.
+ */
+function add_to_context($context)
+{
+    // So here you are adding data to Timber's context object, i.e...
+    $context['foo'] = 'I am some other typical value set in your functions.php file, unrelated to the menu';
+
+    // Now, in similar fashion, you add a Timber Menu and send it along to the context.
+    $context['menu'] = Timber::get_menu('primary');
+    $context['menu_shop'] = Timber::get_menu('shop');
+    $context['menu_footer'] = Timber::get_menu('footer');
+
+    return $context;
+}

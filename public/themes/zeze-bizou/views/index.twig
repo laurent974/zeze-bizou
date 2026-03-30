@@ -1,5 +1,11 @@
 {% extends "layout/base.twig" %}
 
 {% block content %}
-<h1>teeest</h1>
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+{{ dump() }}
+{% endblock %}
+
+{% block footer %}
+  <p>{{ __('Brought to you') }}❤</p>
 {% endblock %}

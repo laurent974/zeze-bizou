@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.2",
         "composer/installers": "^2.3",
+        "hellonico/timber-dump-extension": "^2.0",
         "roots/bedrock-autoloader": "^1.0.4",
         "roots/wordpress": "^6.8.3",
         "symfony/http-foundation": "^7.3",
@@ -18,7 +19,9 @@
         "vinkla/headache": "^3.5",
         "vlucas/phpdotenv": "^5.6",
         "wpackagist-plugin/advanced-custom-fields": "^6.7",
-        "wpackagist-plugin/clean-image-filenames": "^1.5"
+        "wpackagist-plugin/clean-image-filenames": "^1.5",
+        "wpackagist-plugin/polylang": "^3.8",
+        "wpackagist-plugin/woocommerce": "^10.6"
     },
     "require-dev": {
         "symfony/var-dumper": "^7.3"
@@ -54,7 +57,9 @@
             "public/mu-plugins/{$name}": [
                 "type:wordpress-muplugin",
                 "wpackagist-plugin/clean-image-filenames",
-                "wpackagist-plugin/advanced-custom-fields"
+                "wpackagist-plugin/advanced-custom-fields",
+                "wpackagist-plugin/polylang",
+                "wpackagist-plugin/woocommerce"
             ],
             "public/plugins/{$name}": [
                 "type:wordpress-plugin"
