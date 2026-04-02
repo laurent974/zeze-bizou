@@ -35,5 +35,19 @@ jobs:
       - name: Deploy to VPS
         run: |
           rsync -avz --delete \
-          --filter=':- .rsync-filter' \
+          --exclude=".git/" \
+          --exclude=".env" \
+          --exclude="node_modules/" \
+          --exclude=".ddev/" \
+          --exclude=".biome.json" \
+          --exclude=".editorconfig" \
+          --exclude=".env.example" \
+          --exclude=".github/" \
+          --exclude=".gitignore" \
+          --exclude=".stylelintrc.json" \
+          --exclude="package.json" \
+          --exclude="package-lock.json" \
+          --exclude="README.md" \
+          --exclude="vite.config.js" \
+          --exclude="wp-cli.yml" \
           ./ deploy@135.181.103.94:/var/www/zeze-bizou
