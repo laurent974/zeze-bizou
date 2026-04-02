@@ -17,7 +17,9 @@ jobs:
 
       - name: Build assets
         run: npm install && npm run build
+        env:
+          VITE_THEME: zeze-bizou
 
       - name: Deploy to VPS
         run: |
-          rsync -avz --delete ./ user@your-vps:/var/www/site
+          rsync -avz --delete ./ deploy@135.181.103.94:/var/www/zeze-bizou
