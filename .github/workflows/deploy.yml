@@ -35,6 +35,7 @@ jobs:
       - name: Deploy to VPS
         run: |
           pwd
+          ls -la
           rsync -avz --delete \
           --filter=":- .rsync-filter" \
           ./ deploy@135.181.103.94:/var/www/zeze-bizou
