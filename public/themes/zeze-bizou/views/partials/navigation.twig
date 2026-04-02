@@ -1,0 +1,20 @@
+<nav>
+  <ul>
+    {% for item in menu.items %}
+      <li class="{{ item.class }}">
+        {% if item.children %}
+          <button>{{ item.title }}</button>
+          <ul>
+            {% for subItem in item.children %}
+              <li class="{{ subItem.class }}">
+                <a href="{{ subItem.url }}">{{ subItem.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <a href="{{ item.url }}">{{ item.title }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

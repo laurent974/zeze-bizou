@@ -1,0 +1,23 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Build assets
+        run: pnpm install && pnpm run build
+
+      - name: Deploy to VPS
+        run: |
+          rsync -avz --delete ./ user@your-vps:/var/www/site

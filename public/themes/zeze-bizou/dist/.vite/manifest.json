@@ -1,0 +1,11 @@
+{
+  "js/main.js": {
+    "file": "main-BTsKAViX.js",
+    "name": "main",
+    "src": "js/main.js",
+    "isEntry": true,
+    "css": [
+      "main-tn0RQdqM.css"
+    ]
+  }
+}
