@@ -14,7 +14,7 @@ services:
     working_dir: /var/www/wordpress
     volumes:
       - ./public:/var/www/wordpress
-      - ./wp-config.php:/var/www/wordpress/wp-config.php
+      - ./public/wp-config.php:/var/www/wordpress/wp-config.php
 
   web:
     image: nginx:alpine
