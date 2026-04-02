@@ -9,7 +9,7 @@ services:
       - db_data:/var/lib/mysql
 
   php:
-    image: wordpress:php8.2-fpm
+    image: php:php8.2-fpm
     container_name: zeze-php
     restart: unless-stopped
     working_dir: /var/www/wordpress
