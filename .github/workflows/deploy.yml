@@ -14,11 +14,14 @@ jobs:
 
       - name: Install dependencies
         run: composer install --no-dev --optimize-autoloader
+        env:
+          WP_DEBUG: false
+          WP_ENVIRONMENT_TYPE: production
 
       - name: Build assets
         run: npm install && npm run build
         env:
-          WP_DEFAULT_THEME: ${{ secrets.WP_DEFAULT_THEME }}
+          WP_DEFAULT_THEME: zeze-bizou
 
       - name: Deploy to VPS
         run: |
