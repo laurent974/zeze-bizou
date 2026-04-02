@@ -23,6 +23,16 @@ jobs:
         env:
           WP_DEFAULT_THEME: zeze-bizou
 
+      - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY}}"
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+
+      - name: Add VPS to known_hosts
+      run: ssh-keyscan -H 135.181.103.94 >> ~/.ssh/known_hosts
+
       - name: Deploy to VPS
         run: |
-          rsync -avz --delete ./ deploy@135.181.103.94:/var/www/zeze-bizou
+          rsync -avz --delete --exclude=".env" --exclude=".git" ./ deploy@135.181.103.94:/var/www/zeze-bizou
