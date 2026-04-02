@@ -3,7 +3,12 @@ services:
     image: mariadb:11.1
     container_name: zeze-db
     restart: unless-stopped
-    env_file: .env
+    # env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecret
+      MYSQL_DATABASE: zeze_bizou
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wpsecret
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
       - db_data:/var/lib/mysql
