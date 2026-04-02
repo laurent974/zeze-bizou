@@ -16,6 +16,7 @@ services:
     volumes:
       - ./public:/var/www/wordpress
       - ./public/wp-config.php:/var/www/wordpress/wp-config.php
+      - ./:/var/www
     command: bash -c "composer install --no-dev --optimize-autoloader && php-fpm"
 
   web:
