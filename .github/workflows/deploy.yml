@@ -18,7 +18,7 @@ jobs:
       - name: Build assets
         run: npm install && npm run build
         env:
-          VITE_THEME: zeze-bizou
+          WP_DEFAULT_THEME: zeze-bizou
 
       - name: Deploy to VPS
         run: |
