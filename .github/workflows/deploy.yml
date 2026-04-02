@@ -18,7 +18,7 @@ jobs:
       - name: Build assets
         run: npm install && npm run build
         env:
-          WP_DEFAULT_THEME: ${{ secrets.WP_DEFAULT_THEME }}
+          WP_DEFAULT_THEME: ${{ vars.WP_DEFAULT_THEME }}
 
       - name: Deploy to VPS
         run: |
