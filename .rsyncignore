@@ -1,0 +1,15 @@
+- .git
+- .env
+- node_modules
+- .ddev
+- .biome.json
+- .editorconfig
+- .env.example
+- .github
+- .gitignore
+- .stylelintrc.json
+- package.json
+- package-lock.json
+- README.md
+- vite.config.js
+- wp-cli.yml
