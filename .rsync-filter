@@ -1,11 +1,11 @@
-- .git
+- .git/
 - .env
-- node_modules
-- .ddev
+- node_modules/
+- .ddev/
 - .biome.json
 - .editorconfig
 - .env.example
-- .github
+- .github/
 - .gitignore
 - .stylelintrc.json
 - package.json
