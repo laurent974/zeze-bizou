@@ -1,9 +1,10 @@
 services:
   db:
-    image: mysql:8.0
+    image: mariadb:11.1
     container_name: zeze-db
     restart: unless-stopped
     env_file: .env
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
       - db_data:/var/lib/mysql
 
@@ -15,6 +16,7 @@ services:
     volumes:
       - ./public:/var/www/wordpress
       - ./public/wp-config.php:/var/www/wordpress/wp-config.php
+    command: bash -c "composer install --no-dev --optimize-autoloader && php-fpm"
 
   web:
     image: nginx:alpine
