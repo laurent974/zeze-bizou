@@ -35,6 +35,11 @@ jobs:
       # - name: Add VPS to known_hosts
       #   run: ssh-keyscan -H 135.181.103.94 >> ~/.ssh/known_hosts
 
+      - name: Sync WordPress core
+        run: |
+          rsync -avz ./wordpress/ deploy@135.181.103.94:/var/www/zeze-bizou/public/wordpress \
+          -e "ssh -o StrictHostkeyChecking=no"
+
       - name: Deploy to VPS
         run: |
           rsync -avz --delete \

@@ -19,6 +19,7 @@ services:
     working_dir: /var/www/zeze-bizou
     volumes:
       - ./public:/var/www/zeze-bizou/public
+      - ./public/wp-content/uploads:/var/www/zeze-bizou/public/wp-content/uploads
       - ./.env/:/var/www/zeze-bizou/.env
     expose:
       - "9000"
