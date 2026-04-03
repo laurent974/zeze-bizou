@@ -35,10 +35,18 @@ services:
     depends_on:
       - php
 
-  whodb:
-    image: clidey/whodb
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: zeze-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db           # nom du service MariaDB
+      PMA_USER: db           # user par défaut (optionnel)
+      PMA_PASSWORD: db       # password par défaut (optionnel)
     ports:
-      - "8080:8080"
+      - "8080:80"            # accessible sur http://VPS:8080
+    depends_on:
+      - db
 
 volumes:
   db_data:
