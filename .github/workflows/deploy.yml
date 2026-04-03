@@ -56,15 +56,15 @@ jobs:
           -e "ssh -o StrictHostkeyChecking=no"
 
       - name: Install WordPress core on VPS
-         run: |
-            ssh deploy@VPS_IP "
-              cd /var/www/zeze-bizou/public &&
-              # Option 1: si composer gère WordPress
-              composer install --no-dev --optimize-autoloader
+        run: |
+          ssh deploy@VPS_IP "
+            cd /var/www/zeze-bizou/public &&
+            # Option 1: si composer gère WordPress
+            composer install --no-dev --optimize-autoloader
 
-              # Option 2: si tu veux wp-cli
-              # wp core download --path=wordpress --locale=fr --allow-root
-            "
+            # Option 2: si tu veux wp-cli
+            # wp core download --path=wordpress --locale=fr --allow-root
+          "
 
       - name: Start Docker on VPS
         run: |
