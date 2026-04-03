@@ -29,8 +29,8 @@ services:
     image: nginx:alpine
     container_name: zeze-nginx
     restart: unless-stopped
-    ports:
-      - "80:80"
+    # ports:
+    #   - "80:80"
     volumes:
       - ./public:/var/www/wordpress
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
