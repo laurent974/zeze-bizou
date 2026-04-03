@@ -12,25 +12,28 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: composer install --no-dev --optimize-autoloader
-        env:
-          WP_DEBUG: false
-          WP_ENVIRONMENT_TYPE: production
+      # - name: Install dependencies
+      #   run: composer install --no-dev --optimize-autoloader
+      #   env:
+      #     WP_DEBUG: false
+      #     WP_ENVIRONMENT_TYPE: production
 
-      - name: Build assets
-        run: npm install && npm run build
-        env:
-          WP_DEFAULT_THEME: zeze-bizou
+      # - name: Build assets
+      #   run: npm install && npm run build
+      #   env:
+      #     WP_DEFAULT_THEME: zeze-bizou
 
       - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-
-      - name: Add VPS to known_hosts
-        run: ssh-keyscan -H 135.181.103.94 >> ~/.ssh/known_hosts
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+      #     chmod 600 ~/.ssh/id_ed25519
+      #
+      # - name: Add VPS to known_hosts
+      #   run: ssh-keyscan -H 135.181.103.94 >> ~/.ssh/known_hosts
 
       - name: Deploy to VPS
         run: |

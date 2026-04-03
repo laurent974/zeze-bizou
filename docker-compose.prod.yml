@@ -45,10 +45,33 @@ services:
       PMA_HOST: db           # nom du service MariaDB
       PMA_USER: db           # user par défaut (optionnel)
       PMA_PASSWORD: db       # password par défaut (optionnel)
-    ports:
-      - "8080:80"            # accessible sur http://VPS:8080
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.phpmyadmin.rule=PathPrefix(`/phpmyadmin`)"
+      - "traefik.http.routers.phpmyadmin.entrypoints=web"
+      # Pour futur SSL :
+      #- "traefik.http.routers.phpmyadmin.entrypoints=websecure"
+      #- "traefik.http.routers.phpmyadmin.tls=true"
+    # ports:
+    #   - "8080:80"            # accessible sur http://VPS:8080
     depends_on:
       - db
+
+  traefik:
+    image: traefik:v3.0
+    container_name: zeze-traefik
+    restart: unless-stopped
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8081:8080" # dashboard Traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
 volumes:
   db_data:
