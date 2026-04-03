@@ -20,7 +20,7 @@ services:
     volumes:
       - ./public:/var/www/wordpress
       - ./:/var/www
-      - ./.env/:/var/www/.env
+      - ./.env/:/var/www/wordpress/.env
     expose:
       - "9000"
     depends_on:
