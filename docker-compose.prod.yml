@@ -16,10 +16,10 @@ services:
     build: .
     container_name: zeze-php
     restart: unless-stopped
-    working_dir: /var/www/wordpress
+    working_dir: /var/www/public
     volumes:
-      - ./public:/var/www/wordpress
-      - ./.env/:/var/www/wordpress/.env
+      - ./public:/var/www/public
+      - ./.env/:/var/www/public/.env
     expose:
       - "9000"
     depends_on:
