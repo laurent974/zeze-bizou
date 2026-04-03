@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
     working_dir: /var/www/zeze-bizou
     volumes:
-      - ./:/var/www/zeze-bizou
+      - ./public:/var/www/zeze-bizou/public
       - ./.env/:/var/www/zeze-bizou/.env
     expose:
       - "9000"
@@ -32,7 +32,7 @@ services:
     # ports:
     #   - "80:80"
     volumes:
-      - ./zeze-bizou:/var/www/zeze-bizou
+      - ./public:/var/www/zeze-bizou/public
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
