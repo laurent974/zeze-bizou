@@ -58,7 +58,7 @@ jobs:
       - name: Install WordPress core on VPS
         run: |
           ssh deploy@135.181.103.94 "
-            cd /var/www/zeze-bizou/public &&
+            cd /var/www/zeze-bizou &&
             # Option 1: si composer gère WordPress
             composer install --no-dev --optimize-autoloader
 
