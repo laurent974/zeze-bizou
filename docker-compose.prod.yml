@@ -66,6 +66,7 @@ services:
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
+      - "traefik.http.routers.wp.rule=PathPrefix(`/`)" # Provisoire en attendant le domaine
     ports:
       - "80:80"
       - "443:443"
