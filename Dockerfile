@@ -7,7 +7,10 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     libzip-dev \
-    && docker-php-ext-install pdo_mysql zip
+    libpng-dev \
+    libonig-dev \
+    default-mysql-client \
+    && docker-php-ext-install pdo_mysql mysqli zip
 
 # Installer Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
