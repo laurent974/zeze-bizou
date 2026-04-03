@@ -61,6 +61,6 @@ jobs:
           ssh deploy@135.181.103.94 "
             cd /var/www/zeze-bizou &&
             docker compose -f docker-compose.prod.yml pull &&
-            docker compose -f docket-compose.prod.yml build php &&
+            docker compose -f docker-compose.prod.yml build php &&
             docker compose -f docker-compose.prod.yml up -d
           "
