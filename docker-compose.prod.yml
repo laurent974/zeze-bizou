@@ -5,10 +5,10 @@ services:
     restart: unless-stopped
     # env_file: .env
     environment:
-      MYSQL_ROOT_PASSWORD: supersecret
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: zeze_bizou
-      MYSQL_USER: wpuser
-      MYSQL_PASSWORD: wpsecret
+      MYSQL_USER: db
+      MYSQL_PASSWORD: db
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
       - db_data:/var/lib/mysql
