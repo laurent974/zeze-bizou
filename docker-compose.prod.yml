@@ -19,7 +19,6 @@ services:
     working_dir: /var/www/wordpress
     volumes:
       - ./public:/var/www/wordpress
-      - ./:/var/www
       - ./.env/:/var/www/wordpress/.env
     expose:
       - "9000"
@@ -33,7 +32,7 @@ services:
     # ports:
     #   - "80:80"
     volumes:
-      - ./:/var/www
+      - ./public:/var/www/public
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
