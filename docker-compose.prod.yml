@@ -21,6 +21,8 @@ services:
       - ./public:/var/www/wordpress
       - ./:/var/www
       - ./.env/:/var/www/.env
+    expose:
+      - "9000"
     depends_on:
       - db
 
