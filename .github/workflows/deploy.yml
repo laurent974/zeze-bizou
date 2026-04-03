@@ -66,6 +66,13 @@ jobs:
             # wp core download --path=wordpress --locale=fr --allow-root
           "
 
+      - name: Composer install
+        run: |
+          ssh deploy@VPS_IP "
+            cd /var/www/zeze-bizou/public &&
+            composer install --no-dev --optimize-autoloader
+          "
+
       - name: Start Docker on VPS
         run: |
           ssh deploy@135.181.103.94 "
