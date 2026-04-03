@@ -16,10 +16,10 @@ services:
     build: .
     container_name: zeze-php
     restart: unless-stopped
-    working_dir: /var/www/public/wordpress
+    working_dir: /var/www/zeze-bizou
     volumes:
-      - ./public:/var/www/public/wordpress
-      - ./.env/:/var/www/public/wordpress/.env
+      - ./:/var/www/zeze-bizou
+      - ./.env/:/var/www/zeze-bizou/.env
     expose:
       - "9000"
     depends_on:
@@ -32,7 +32,7 @@ services:
     # ports:
     #   - "80:80"
     volumes:
-      - ./public:/var/www/public
+      - ./zeze-bizou:/var/www/zeze-bizou
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
