@@ -52,6 +52,7 @@ jobs:
           --exclude="README.md" \
           --exclude="vite.config.js" \
           --exclude="wp-cli.yml" \
+          --exclude="public/wordpress/" \
           ./ deploy@135.181.103.94:/var/www/zeze-bizou \
           -e "ssh -o StrictHostkeyChecking=no"
 
