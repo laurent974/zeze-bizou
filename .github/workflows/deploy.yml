@@ -53,12 +53,14 @@ jobs:
           --exclude="README.md" \
           --exclude="vite.config.js" \
           --exclude="wp-cli.yml" \
-          ./ deploy@135.181.103.94:/var/www/zeze-bizou
+          ./ deploy@135.181.103.94:/var/www/zeze-bizou \
+          -e "ssh -o StrictHostkeyChecking=no"
 
       - name: Start Docker on VPS
         run: |
           ssh deploy@135.181.103.94 "
             cd /var/www/zeze-bizou &&
             docker compose -f docker-compose.prod.yml pull &&
-            docker compose -f docker-compose.prod.yml up -d --build
+            docker compose -f docket-compose.prod.yml build php &&
+            docker compose -f docker-compose.prod.yml up -d
           "
