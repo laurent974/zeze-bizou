@@ -34,6 +34,11 @@ jobs:
       #
       # - name: Add VPS to known_hosts
       #   run: ssh-keyscan -H 135.181.103.94 >> ~/.ssh/known_hosts
+
+      - name: Install Composer dependencies
+        run: |
+          composer install --no-dev --optimize-autoloader
+
       - name: Deploy to VPS
         run: |
           rsync -avz --delete \
@@ -53,26 +58,27 @@ jobs:
           --exclude="vite.config.js" \
           --exclude="wp-cli.yml" \
           --exclude="public/wordpress/" \
+          --exclude="vendor/"
           ./ deploy@135.181.103.94:/var/www/zeze-bizou \
           -e "ssh -o StrictHostkeyChecking=no"
-
-      - name: Install WordPress core on VPS
-        run: |
-          ssh deploy@135.181.103.94 "
-            cd /var/www/zeze-bizou &&
-            # Option 1: si composer gère WordPress
-            composer install --no-dev --optimize-autoloader
-
-            # Option 2: si tu veux wp-cli
-            # wp core download --path=wordpress --locale=fr --allow-root
-          "
-
-      - name: Composer install
-        run: |
-          ssh deploy@135.181.103.94 "
-            cd /var/www/zeze-bizou/public &&
-            composer install --no-dev --optimize-autoloader
-          "
+      #
+      # - name: Install WordPress core on VPS
+      #   run: |
+      #     ssh deploy@135.181.103.94 "
+      #       cd /var/www/zeze-bizou &&
+      #       # Option 1: si composer gère WordPress
+      #       composer install --no-dev --optimize-autoloader
+      #
+      #       # Option 2: si tu veux wp-cli
+      #       # wp core download --path=wordpress --locale=fr --allow-root
+      #     "
+      #
+      # - name: Composer install
+      #   run: |
+      #     ssh deploy@135.181.103.94 "
+      #       cd /var/www/zeze-bizou/public &&
+      #       composer install --no-dev --optimize-autoloader
+      #     "
 
       - name: Start Docker on VPS
         run: |
