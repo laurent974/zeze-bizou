@@ -5,9 +5,9 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: zeze_bizou
-      MYSQL_USER: db
-      MYSQL_PASSWORD: db
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
       - db_data:/var/lib/mysql
@@ -47,18 +47,18 @@ services:
     container_name: zeze-phpmyadmin
     restart: unless-stopped
     environment:
-      PMA_HOST: db           # nom du service MariaDB
-      PMA_USER: db           # user par défaut (optionnel)
-      PMA_PASSWORD: db       # password par défaut (optionnel)
+      PMA_HOST: ${DB_HOST}
+      PMA_USER: ${DB_USER}
+      PMA_PASSWORD: ${DB_PASSWORD}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.phpmyadmin.rule=PathPrefix(`/phpmyadmin`)"
+      # - "traefik.http.routers.phpmyadmin.rule=PathPrefix(`pma.zeze-bizou.es`)"
       - "traefik.http.routers.phpmyadmin.entrypoints=web"
       # Pour futur SSL :
       #- "traefik.http.routers.phpmyadmin.entrypoints=websecure"
       #- "traefik.http.routers.phpmyadmin.tls=true"
-    # ports:
-    #   - "8080:80"            # accessible sur http://VPS:8080
+    ports:
+      - "8080:80"            # accessible sur http://VPS:8080
     depends_on:
       - db
 
