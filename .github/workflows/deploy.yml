@@ -42,7 +42,23 @@ jobs:
       - name: Deploy to VPS
         run: |
           rsync -avz --delete \
-            -e "ssh -o StrictHostkeyChecking=no"
+            -e "ssh -o StrictHostkeyChecking=no" \
+            --exclude=".git/" \
+            --exclude=".env" \
+            --exclude="node_modules/" \
+            --exclude=".ddev/" \
+            --exclude=".biome.json" \
+            --exclude=".editorconfig" \
+            --exclude=".env.example" \
+            --exclude=".github/" \
+            --exclude=".gitignore" \
+            --exclude=".stylelintrc.json" \
+            --exclude="package.json" \
+            --exclude="package-lock.json" \
+            --exclude="README.md" \
+            --exclude="vite.config.js" \
+            --exclude="wp-cli.yml" \
+            --exclude="public/wordpress/" \
             ./ deploy@135.181.103.94:/var/www/zeze-bizou/ \
       #
       # - name: Install WordPress core on VPS
