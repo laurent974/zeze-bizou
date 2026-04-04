@@ -42,6 +42,7 @@ jobs:
       - name: Deploy to VPS
         run: |
           rsync -avz --delete \
+          -e "ssh -o StrictHostkeyChecking=no"
           --exclude=".git/" \
           --exclude=".env" \
           --exclude="node_modules/" \
@@ -60,7 +61,6 @@ jobs:
           --exclude="public/wordpress/" \
           --exclude="vendor/"
           ./ deploy@135.181.103.94:/var/www/zeze-bizou \
-          -e "ssh -o StrictHostkeyChecking=no"
       #
       # - name: Install WordPress core on VPS
       #   run: |
