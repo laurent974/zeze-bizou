@@ -60,7 +60,7 @@ jobs:
           --exclude="wp-cli.yml" \
           --exclude="public/wordpress/" \
           --exclude="vendor/"
-          ./ deploy@135.181.103.94:/var/www/zeze-bizou \
+          ./ deploy@135.181.103.94:/var/www/zeze-bizou/ \
       #
       # - name: Install WordPress core on VPS
       #   run: |
