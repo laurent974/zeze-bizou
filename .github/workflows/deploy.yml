@@ -12,72 +12,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # - name: Install dependencies
-      #   run: composer install --no-dev --optimize-autoloader
-      #   env:
-      #     WP_DEBUG: false
-      #     WP_ENVIRONMENT_TYPE: production
-
-      # - name: Build assets
-      #   run: npm install && npm run build
-      #   env:
-      #     WP_DEFAULT_THEME: zeze-bizou
-
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #   run: |
-      #     mkdir -p ~/.ssh
-      #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-      #     chmod 600 ~/.ssh/id_ed25519
-      #
-      # - name: Add VPS to known_hosts
-      #   run: ssh-keyscan -H 135.181.103.94 >> ~/.ssh/known_hosts
 
-      - name: Install Composer dependencies
-        run: |
-          composer install --no-dev --optimize-autoloader
+      # - name: Install Composer dependencies
+      #   run: |
+      #     composer install --no-dev --optimize-autoloader
 
       - name: Deploy to VPS
         run: |
-          rsync -avz --delete \
+          rsync -avz \
             -e "ssh -o StrictHostkeyChecking=no" \
             --exclude=".git/" \
             --exclude=".env" \
             --exclude="node_modules/" \
-            --exclude=".ddev/" \
-            --exclude=".biome.json" \
-            --exclude=".editorconfig" \
-            --exclude=".env.example" \
-            --exclude=".github/" \
-            --exclude=".gitignore" \
-            --exclude=".stylelintrc.json" \
-            --exclude="package.json" \
-            --exclude="package-lock.json" \
-            --exclude="README.md" \
-            --exclude="vite.config.js" \
-            --exclude="wp-cli.yml" \
-            --exclude="public/wordpress/" \
             ./ deploy@135.181.103.94:/var/www/zeze-bizou/ \
-      #
-      # - name: Install WordPress core on VPS
-      #   run: |
-      #     ssh deploy@135.181.103.94 "
-      #       cd /var/www/zeze-bizou &&
-      #       # Option 1: si composer gère WordPress
-      #       composer install --no-dev --optimize-autoloader
-      #
-      #       # Option 2: si tu veux wp-cli
-      #       # wp core download --path=wordpress --locale=fr --allow-root
-      #     "
-      #
-      # - name: Composer install
-      #   run: |
-      #     ssh deploy@135.181.103.94 "
-      #       cd /var/www/zeze-bizou/public &&
-      #       composer install --no-dev --optimize-autoloader
-      #     "
 
       - name: Start Docker on VPS
         run: |

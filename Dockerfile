@@ -17,7 +17,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
-WORKDIR /var/www/wordpress
+WORKDIR /var/www/zeze-bizou
 
 # Copier composer.json et composer.lock d'abord pour profiter du cache Docker
 COPY composer.json composer.lock ./
